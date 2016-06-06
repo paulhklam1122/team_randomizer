@@ -1,0 +1,44 @@
+<div class="navbar">
+  <a href="/">Home</a> |
+  <a href="/">Company Name</a> |
+  <a href="/">Temp Convertor</a> |
+  <a href="/">Calculator1</a> |
+  <a href="/">Bill Splitter</a> |
+  <a href="/">Pick Random</a> |
+  <a href="/">Team Picker</a>
+</div>
+<hr />
+  <form action="/acquire_team" method="post">
+    <div>
+      <label for="names" class="bold">Names</label><br />
+      <textarea name="names" id="names" rows="3" cols="80"><%= session[:input] %></textarea><br>
+    </div>
+    <div>
+      <label class="bold">Method</label>
+      <input type="radio" name="method" id="team_count" value="team_count"/><label class="radio_label" for="team_count">Team Count</label>
+      <input type="radio" name="method" id="number_per_team" value="number_per_team"/><label class="radio_label" for="number_per_team">Number Per Team</label></br>
+    </div>
+    <div>
+      <label class="bold">Number</label><br />
+      <input type="text" name="number" /><br />
+    </div>
+    <div>
+      <a href="/"><input id="submit" type="submit"></a>
+    </div>
+  </form>
+  <div class=team_area>
+    <% if session[:result] != nil && session[:result].class != String %>
+      <% (1..session[:result].length).each do |team_number| %>
+    <div class="team_box">
+      <h3 class="team_header"><%= team_number %></h3>
+      <ul>
+        <% session[:result][team_number - 1].each do |team_member| %>
+        <li><%= team_member %></li>
+          <% end %>
+      </ul>
+    </div>
+      <% end %>
+    <% else %>
+    <div class="team_box"><%= session[:result] %></div>
+    <% end %>
+  </div>
