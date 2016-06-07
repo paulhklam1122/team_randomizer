@@ -9,7 +9,7 @@ end
 post '/acquire_team' do
   puts params
   session[:input] = params[:names]
-  session[:names] = params[:names].split(",")
+  session[:names] = params[:names].split(",").shuffle
   session[:method] = params[:method]
   @check = params[:number].to_i
   if @check <= session[:names].length && @check != 0
@@ -44,7 +44,7 @@ post '/acquire_team' do
       begin
         @result_1 << @names_shuffled.slice(@member_1, @length)
         @member_1 += @number_per_group
-      end while @member_1 <= @names_shuffled.length - @length 
+      end while @member_1 <= @names_shuffled.length - @length
       @temp = @names_shuffled - @result_1.flatten
       # print "temp: #{@temp}!!!!!"
       # print "result: #{@result_1}?????"
